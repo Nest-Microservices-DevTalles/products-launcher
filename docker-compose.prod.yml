@@ -40,18 +40,18 @@ services:
       - DATABASE_URL=file:./dev.db
 
   
-#   # Orders MS
-#   orders-ms:
-#     depends_on:
-#       - orders-db
-#     build: ./orders-ms
-#     volumes:
-#       - ./orders-ms/src:/usr/src/app/src
-#     command: npm run start:dev
-#     environment:
-#       - PORT=3002
-#       - DATABASE_URL=postgresql://postgres:123456@orders-db:5432/ordersdb?schema=public
-#       - NATS_SERVERS=nats://nats-server:4222
+  # Orders MS
+  orders-ms:
+    build: 
+      context: ./orders-ms
+      dockerfile: dockerfile.prod
+      args:
+        - ORDERS_DATABASE_URL=${ORDERS_DATABASE_URL}
+    image: orders-ms
+    environment:
+      - PORT=3000
+      - DATABASE_URL=${ORDERS_DATABASE_URL}
+      - NATS_SERVERS=nats://nats-server:4222
 
 
 # ======================
