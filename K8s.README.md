@@ -66,3 +66,18 @@ kubectl create secret docker-registry gcr-json-key --docker-server=SERVIDOR-DE-G
 ```
 kubectl patch serviceaccounts default -p '{ "imagePullSecrets": [{ "name":"gcr-json-key" }] }'
 ```
+
+
+## Exportar y aplicar configuraciones con archivos (secrets en este caso)
+* Para exportar los archivos de configuración
+
+```
+kubectl get secret <nombre> -o yaml > <nombre>.yml
+```
+
+* Aplicar la configuración basado en el archivo
+```
+kubectl create -f <nombre>.yml
+```
+
+
